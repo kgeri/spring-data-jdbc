@@ -23,15 +23,15 @@ pipeline {
 				docker {
 					image 'adoptopenjdk/openjdk8:latest'
 					label 'data'
-					args '-u root -v /var/run/docker.sock:/var/run/docker.sock  -v $HOME:/tmp/jenkins-home'
+					args '-v /var/run/docker.sock:/var/run/docker.sock  -v $HOME:/tmp/jenkins-home'
 				}
 			}
 			options { timeout(time: 30, unit: 'MINUTES') }
 			steps {
-			    sh './accept-third-party-license.sh'
-				sh 'mkdir -p /tmp/jenkins-home'
-				sh 'chown -R 1001:1001 .'
-				sh 'MAVEN_OPTS="-Duser.name=jenkins -Duser.home=/tmp/jenkins-home" ./mvnw -Pci,all-dbs clean dependency:list test -Dsort -U -B -Dmaven.repo.local=/tmp/jenkins-home/.m2/spring-data-jdbc'
+				sh 'ci/rootless-docker.bash'
+// 			    sh './accept-third-party-license.sh'
+// 				sh 'mkdir -p /tmp/jenkins-home'
+// 				sh 'MAVEN_OPTS="-Duser.name=jenkins -Duser.home=/tmp/jenkins-home" ./mvnw -Pci,all-dbs clean dependency:list test -Dsort -U -B'
 			}
 		}
 
@@ -48,7 +48,7 @@ pipeline {
 						docker {
 							image 'adoptopenjdk/openjdk11:latest'
 							label 'data'
-							args '-u root -v /var/run/docker.sock:/var/run/docker.sock  -v $HOME:/tmp/jenkins-home'
+							args '-v /var/run/docker.sock:/var/run/docker.sock  -v $HOME:/tmp/jenkins-home'
 						}
 					}
 					options { timeout(time: 30, unit: 'MINUTES') }
@@ -63,7 +63,7 @@ pipeline {
 						docker {
 							image 'adoptopenjdk/openjdk15:latest'
 							label 'data'
-							args '-u root -v /var/run/docker.sock:/var/run/docker.sock  -v $HOME:/tmp/jenkins-home'
+							args '-v /var/run/docker.sock:/var/run/docker.sock  -v $HOME:/tmp/jenkins-home'
 						}
 					}
 					options { timeout(time: 30, unit: 'MINUTES') }
@@ -86,7 +86,7 @@ pipeline {
 				docker {
 					image 'adoptopenjdk/openjdk8:latest'
 					label 'data'
-					args '-u root -v /var/run/docker.sock:/var/run/docker.sock  -v $HOME:/tmp/jenkins-home'
+					args '-v /var/run/docker.sock:/var/run/docker.sock  -v $HOME:/tmp/jenkins-home'
 				}
 			}
 			options { timeout(time: 20, unit: 'MINUTES') }
@@ -115,7 +115,7 @@ pipeline {
 				docker {
 					image 'adoptopenjdk/openjdk8:latest'
 					label 'data'
-					args '-u root -v /var/run/docker.sock:/var/run/docker.sock  -v $HOME:/tmp/jenkins-home'
+					args '-v /var/run/docker.sock:/var/run/docker.sock  -v $HOME:/tmp/jenkins-home'
 				}
 			}
 			options { timeout(time: 20, unit: 'MINUTES') }
