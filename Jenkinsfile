@@ -19,13 +19,14 @@ pipeline {
 					not { triggeredBy 'UpstreamCause' }
 				}
 			}
-			agent {
-				docker {
-					image 'adoptopenjdk/openjdk8:latest'
-					label 'data'
-					args '-v /var/run/docker.sock:/var/run/docker.sock  -v $HOME:/tmp/jenkins-home'
-				}
-			}
+			label 'data'
+// 			agent {
+// 				docker {
+// 					image 'adoptopenjdk/openjdk8:latest'
+// 					label 'data'
+// 					args '-v /var/run/docker.sock:/var/run/docker.sock  -v $HOME:/tmp/jenkins-home'
+// 				}
+// 			}
 			options { timeout(time: 30, unit: 'MINUTES') }
 			steps {
 				sh 'ci/rootless-docker.bash'
@@ -35,45 +36,45 @@ pipeline {
 			}
 		}
 
-		stage("Test other configurations") {
-			when {
-				allOf {
-					branch 'master'
-					not { triggeredBy 'UpstreamCause' }
-				}
-			}
-			parallel {
-				stage("test: baseline (jdk11)") {
-					agent {
-						docker {
-							image 'adoptopenjdk/openjdk11:latest'
-							label 'data'
-							args '-v /var/run/docker.sock:/var/run/docker.sock  -v $HOME:/tmp/jenkins-home'
-						}
-					}
-					options { timeout(time: 30, unit: 'MINUTES') }
-					steps {
-			    		sh './accept-third-party-license.sh'
-						sh 'MAVEN_OPTS="-Duser.name=jenkins -Duser.home=/tmp/jenkins-home" ./mvnw -Pci,java11 clean dependency:list test -Dsort -U -B -Dmaven.repo.local=/tmp/jenkins-home/.m2/spring-data-jdbc'
-					}
-				}
-
-				stage("test: baseline (jdk15)") {
-					agent {
-						docker {
-							image 'adoptopenjdk/openjdk15:latest'
-							label 'data'
-							args '-v /var/run/docker.sock:/var/run/docker.sock  -v $HOME:/tmp/jenkins-home'
-						}
-					}
-					options { timeout(time: 30, unit: 'MINUTES') }
-					steps {
-				        sh './accept-third-party-license.sh'
-						sh 'MAVEN_OPTS="-Duser.name=jenkins -Duser.home=/tmp/jenkins-home" ./mvnw -Pci,java11 clean dependency:list test -Dsort -U -B -Dmaven.repo.local=/tmp/jenkins-home/.m2/spring-data-jdbc'
-					}
-				}
-			}
-		}
+// 		stage("Test other configurations") {
+// 			when {
+// 				allOf {
+// 					branch 'master'
+// 					not { triggeredBy 'UpstreamCause' }
+// 				}
+// 			}
+// 			parallel {
+// 				stage("test: baseline (jdk11)") {
+// 					agent {
+// 						docker {
+// 							image 'adoptopenjdk/openjdk11:latest'
+// 							label 'data'
+// 							args '-v /var/run/docker.sock:/var/run/docker.sock  -v $HOME:/tmp/jenkins-home'
+// 						}
+// 					}
+// 					options { timeout(time: 30, unit: 'MINUTES') }
+// 					steps {
+// 			    		sh './accept-third-party-license.sh'
+// 						sh 'MAVEN_OPTS="-Duser.name=jenkins -Duser.home=/tmp/jenkins-home" ./mvnw -Pci,java11 clean dependency:list test -Dsort -U -B -Dmaven.repo.local=/tmp/jenkins-home/.m2/spring-data-jdbc'
+// 					}
+// 				}
+//
+// 				stage("test: baseline (jdk15)") {
+// 					agent {
+// 						docker {
+// 							image 'adoptopenjdk/openjdk15:latest'
+// 							label 'data'
+// 							args '-v /var/run/docker.sock:/var/run/docker.sock  -v $HOME:/tmp/jenkins-home'
+// 						}
+// 					}
+// 					options { timeout(time: 30, unit: 'MINUTES') }
+// 					steps {
+// 				        sh './accept-third-party-license.sh'
+// 						sh 'MAVEN_OPTS="-Duser.name=jenkins -Duser.home=/tmp/jenkins-home" ./mvnw -Pci,java11 clean dependency:list test -Dsort -U -B -Dmaven.repo.local=/tmp/jenkins-home/.m2/spring-data-jdbc'
+// 					}
+// 				}
+// 			}
+// 		}
 
 		stage('Release to artifactory') {
 			when {
