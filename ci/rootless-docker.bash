@@ -16,7 +16,7 @@ export XDG_RUNTIME_DIR=/tmp/docker-spring-data
 #fi
 
 ls -l
-ls -l $XDG_RUNTIME_DIR
+ls -lR $XDG_RUNTIME_DIR
 
 cat rootless-docker-init.sh
 source <(grep '^export' rootless-docker-init.sh)
