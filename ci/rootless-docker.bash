@@ -2,6 +2,9 @@
 
 set -euo pipefail
 
+# Ignore the fact that rootful Docker is running on the agent
+FORCE_ROOTLESS_INSTALL=1
+
 XDG_RUNTIME_DIR=/tmp/docker-spring-data
 
 if [ ! -d $XDG_RUNTIME_DIR ]; then
