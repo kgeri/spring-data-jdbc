@@ -28,8 +28,8 @@ pipeline {
 				label 'data'
 			}
 			options { timeout(time: 30, unit: 'MINUTES') }
-			steps {
-				sh 'ci/rootless-docker.bash'
+// 			steps {
+// 				sh 'ci/rootless-docker.bash'
 
 				docker.withRegistry('', 'hub.docker.com-springbuildmaster') {
 					docker.image('adoptopenjdk/openjdk8:latest').inside {
@@ -38,7 +38,7 @@ pipeline {
 						sh 'MAVEN_OPTS="-Duser.name=jenkins -Duser.home=/tmp/jenkins-home" ./mvnw -Pci,all-dbs clean dependency:list test -Dsort -U -B'
 					}
 				}
-			}
+// 			}
 		}
 
 // 		stage("Test other configurations") {
