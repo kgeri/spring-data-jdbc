@@ -22,4 +22,7 @@ cat rootless-docker-init.sh
 source <(grep '^export' rootless-docker-init.sh)
 PATH=$HOME/bin:$PATH dockerd-rootless.sh --experimental --storage-driver vfs &
 sleep 1
-DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock docker info || ls -la $XDG_RUNTIME_DIR
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+docker info || ls -la $XDG_RUNTIME_DIR
+docker ps
+docker run -it --rm busybox whoami
