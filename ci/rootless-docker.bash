@@ -7,18 +7,19 @@ export FORCE_ROOTLESS_INSTALL=1
 
 export XDG_RUNTIME_DIR=/tmp/docker-spring-data
 
-if [ ! -d $XDG_RUNTIME_DIR ]; then
+#if [ ! -d $XDG_RUNTIME_DIR ]; then
     echo "Don't appear to have rootless Docker!"
 
     mkdir -p $XDG_RUNTIME_DIR || true
 
-    curl -fsSL https://get.docker.com/rootless | sh > init.sh
-fi
+    curl -fsSL https://get.docker.com/rootless | sh > rootless-docker-init.sh
+#fi
 
 ls -l
+ls -l $XDG_RUNTIME_DIR
 
-cat init.sh
-source <(grep '^export' init.sh)
+cat rootless-docker-init.sh
+source <(grep '^export' rootless-docker-init.sh)
 PATH=$HOME/bin:$PATH dockerd-rootless.sh --experimental --storage-driver vfs &
 sleep 1
 DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock docker info || ls -la $XDG_RUNTIME_DIR
