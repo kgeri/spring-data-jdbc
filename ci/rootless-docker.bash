@@ -27,4 +27,4 @@ sleep 1
 export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 docker info || ls -la $XDG_RUNTIME_DIR
 docker ps
-docker run -it --rm busybox whoami
+docker run --rm busybox whoami
