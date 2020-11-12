@@ -16,7 +16,7 @@ if [ ! -d $XDG_RUNTIME_DIR ]; then
 fi
 
 cat init.sh
-source < init.sh
+source init.sh
 PATH=$HOME/bin:$PATH dockerd-rootless.sh --experimental --storage-driver vfs &
 sleep 1
 DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock docker info || ls -la $XDG_RUNTIME_DIR
