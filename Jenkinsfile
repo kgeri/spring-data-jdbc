@@ -20,13 +20,14 @@ pipeline {
 				}
 			}
 			label 'data'
-// 			agent {
+			agent {
 // 				docker {
 // 					image 'adoptopenjdk/openjdk8:latest'
 // 					label 'data'
 // 					args '-v /var/run/docker.sock:/var/run/docker.sock  -v $HOME:/tmp/jenkins-home'
 // 				}
-// 			}
+				label 'data'
+			}
 			options { timeout(time: 30, unit: 'MINUTES') }
 			steps {
 				sh 'ci/rootless-docker.bash'
