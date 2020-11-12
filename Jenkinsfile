@@ -31,7 +31,7 @@ pipeline {
 			steps {
 				sh 'ci/rootless-docker.bash'
 
-				docker.image('adoptopenjdk/openjdk8:latest').withRun('') { c->
+				docker.image('adoptopenjdk/openjdk8:latest').inside { c->
 				    sh './accept-third-party-license.sh'
 					sh 'mkdir -p /tmp/jenkins-home'
 					sh 'MAVEN_OPTS="-Duser.name=jenkins -Duser.home=/tmp/jenkins-home" ./mvnw -Pci,all-dbs clean dependency:list test -Dsort -U -B'
