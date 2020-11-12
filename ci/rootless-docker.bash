@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # Ignore the fact that rootful Docker is running on the agent
-FORCE_ROOTLESS_INSTALL=1
+export FORCE_ROOTLESS_INSTALL=1
 
 XDG_RUNTIME_DIR=/tmp/docker-spring-data
 
