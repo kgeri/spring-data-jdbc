@@ -19,7 +19,6 @@ pipeline {
 					not { triggeredBy 'UpstreamCause' }
 				}
 			}
-			label 'data'
 			agent {
 // 				docker {
 // 					image 'adoptopenjdk/openjdk8:latest'
