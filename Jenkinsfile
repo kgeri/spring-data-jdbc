@@ -29,13 +29,15 @@ pipeline {
 			}
 			options { timeout(time: 30, unit: 'MINUTES') }
 			steps {
-// 				sh 'ci/rootless-docker.bash'
+				script {
+	// 				sh 'ci/rootless-docker.bash'
 
-				docker.withRegistry('', 'hub.docker.com-springbuildmaster') {
-					docker.image('adoptopenjdk/openjdk8:latest').inside {
-					    sh './accept-third-party-license.sh'
-						sh 'mkdir -p /tmp/jenkins-home'
-						sh 'MAVEN_OPTS="-Duser.name=jenkins -Duser.home=/tmp/jenkins-home" ./mvnw -Pci,all-dbs clean dependency:list test -Dsort -U -B'
+					docker.withRegistry('', 'hub.docker.com-springbuildmaster') {
+						docker.image('adoptopenjdk/openjdk8:latest').inside {
+						    sh './accept-third-party-license.sh'
+							sh 'mkdir -p /tmp/jenkins-home'
+							sh 'MAVEN_OPTS="-Duser.name=jenkins -Duser.home=/tmp/jenkins-home" ./mvnw -Pci,all-dbs clean dependency:list test -Dsort -U -B'
+						}
 					}
 				}
 			}
