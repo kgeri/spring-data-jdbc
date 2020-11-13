@@ -34,8 +34,8 @@ pipeline {
 
 					sh 'ps -ef | grep docker'
 
-					docker.withRegistry('', 'hub.docker.com-springbuildmaster').withRun('-e "DOCKER_HOST=unix:///tmp/docker-spring-data/docker.sock"') { c ->
-						docker.image('adoptopenjdk/openjdk8:latest').inside {
+					docker.withRegistry('', 'hub.docker.com-springbuildmaster') {   
+						docker.image('adoptopenjdk/openjdk8:latest').withRun('-e "DOCKER_HOST=unix:///tmp/docker-spring-data/docker.sock"').inside {
 						    sh './accept-third-party-license.sh'
 							sh 'mkdir -p /tmp/jenkins-home'
 							sh 'MAVEN_OPTS="-Duser.name=jenkins -Duser.home=/tmp/jenkins-home" ./mvnw -Pci,all-dbs clean dependency:list test -Dsort -U -B'
