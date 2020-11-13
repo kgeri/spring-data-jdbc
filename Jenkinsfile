@@ -32,14 +32,12 @@ pipeline {
 				script {
 					sh 'ci/rootless-docker.bash'
 
-					sh 'ps -ef | grep docker'
-
 					docker.withRegistry('', 'hub.docker.com-springbuildmaster') {
 						docker.image('adoptopenjdk/openjdk8:latest').inside('-e "XDG_RUNTIME_DIR=/tmp/docker-spring-data" -e "DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock" -v $XDG_RUNTIME_DIR/docker.sock:/var/run/docker.sock') {
 							sh 'ls -l /var/run/docker.sock'
 						    sh './accept-third-party-license.sh'
 							sh 'mkdir -p /tmp/jenkins-home'
-							sh 'MAVEN_OPTS="-Duser.name=jenkins -Duser.home=/tmp/jenkins-home" XDG_RUNTIME_DIR=/tmp/docker-spring-data DOCKER_HOST=/var/run/docker.sock ./mvnw -Pci,all-dbs clean dependency:list test -Dsort -U -B'
+							sh 'MAVEN_OPTS="-Duser.name=jenkins -Duser.home=/tmp/jenkins-home" DOCKER_HOST=/var/run/docker.sock ./mvnw -Pci,all-dbs clean dependency:list test -Dsort -U -B'
 						}
 					}
 				}
