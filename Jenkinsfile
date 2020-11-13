@@ -39,7 +39,7 @@ pipeline {
 							sh 'ls -l /var/run/docker.sock'
 						    sh './accept-third-party-license.sh'
 							sh 'mkdir -p /tmp/jenkins-home'
-							sh 'MAVEN_OPTS="-Duser.name=jenkins -Duser.home=/tmp/jenkins-home" ./mvnw -Pci,all-dbs clean dependency:list test -Dsort -U -B'
+							sh 'MAVEN_OPTS="-Duser.name=jenkins -Duser.home=/tmp/jenkins-home" XDG_RUNTIME_DIR=/tmp/docker-spring-data DOCKER_HOST=/var/run/docker.sock ./mvnw -Pci,all-dbs clean dependency:list test -Dsort -U -B'
 						}
 					}
 				}
