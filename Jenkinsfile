@@ -30,7 +30,7 @@ pipeline {
 			options { timeout(time: 30, unit: 'MINUTES') }
 			steps {
 				script {
-	// 				sh 'ci/rootless-docker.bash'
+					sh 'ci/rootless-docker.bash'
 
 					docker.withRegistry('', 'hub.docker.com-springbuildmaster') {
 						docker.image('adoptopenjdk/openjdk8:latest').inside {
