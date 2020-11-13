@@ -34,9 +34,6 @@ pipeline {
 
 					sh 'ps -ef | grep docker'
 
-					sh 'export XDG_RUNTIME_DIR=/tmp/docker-spring-data'
-					sh 'export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock'
-
 					docker.withRegistry('', 'hub.docker.com-springbuildmaster').withRun('-e "DOCKER_HOST=unix:///tmp/docker-spring-data/docker.sock"') { c ->
 						docker.image('adoptopenjdk/openjdk8:latest').inside {
 						    sh './accept-third-party-license.sh'
