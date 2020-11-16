@@ -17,9 +17,6 @@ export XDG_RUNTIME_DIR=/tmp/docker-spring-data
     curl -fsSL https://get.docker.com/rootless | sh > rootless-docker-init.sh
 #fi
 
-ls -l
-ls -lR $XDG_RUNTIME_DIR
-
 cat rootless-docker-init.sh
 source <(grep '^export' rootless-docker-init.sh)
 PATH=$HOME/bin:$PATH dockerd-rootless.sh --experimental --storage-driver vfs &
