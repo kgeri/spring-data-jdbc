@@ -14,5 +14,7 @@ mkdir -p /tmp/jenkins-home
 docker run --rm busybox whoami
 
 docker info
+docker ps
+docker images
 
 #MAVEN_OPTS="-Duser.name=jenkins -Duser.home=/tmp/jenkins-home" ./mvnw -Pci,all-dbs clean dependency:list test -Dsort -U -B
