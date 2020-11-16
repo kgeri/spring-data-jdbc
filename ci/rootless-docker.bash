@@ -22,9 +22,7 @@ source <(grep '^export' rootless-docker-init.sh)
 PATH=$HOME/bin:$PATH dockerd-rootless.sh --experimental --storage-driver vfs &
 sleep 1
 
-chmod -f o+rwx $XDG_RUNTIME_DIR/docker.sock
-chmod -f g+rwx $XDG_RUNTIME_DIR/docker.sock
-chmod -f u+rwx $XDG_RUNTIME_DIR/docker.sock
+chmod -f 1755 $XDG_RUNTIME_DIR/docker.sock
 
 export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 docker info || ls -la $XDG_RUNTIME_DIR
