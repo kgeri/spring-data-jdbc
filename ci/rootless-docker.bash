@@ -23,6 +23,7 @@ PATH=$HOME/bin:$PATH dockerd-rootless.sh --experimental --storage-driver vfs &
 sleep 1
 
 chmod -f 1755 $XDG_RUNTIME_DIR/docker.sock
+chown -f 1001:1001 $XDG_RUNTIME_DIR/docker.sock
 
 export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 docker info || ls -la $XDG_RUNTIME_DIR
