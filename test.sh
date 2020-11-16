@@ -11,6 +11,6 @@ ls -l /var/run/docker.sock
 
 mkdir -p /tmp/jenkins-home
 
-docker run -it --rm busybox whoami
+docker run --rm busybox whoami
 
 #MAVEN_OPTS="-Duser.name=jenkins -Duser.home=/tmp/jenkins-home" ./mvnw -Pci,all-dbs clean dependency:list test -Dsort -U -B
