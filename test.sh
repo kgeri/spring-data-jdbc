@@ -17,6 +17,6 @@ docker info
 docker ps
 docker images
 
-docker run -it -v /var/run/docker.sock:/var/run/docker.sock --rm testcontainers/ryuk:0.3.0
+docker run -v /var/run/docker.sock:/var/run/docker.sock --rm testcontainers/ryuk:0.3.0
 
 #MAVEN_OPTS="-Duser.name=jenkins -Duser.home=/tmp/jenkins-home" ./mvnw -Pci,all-dbs clean dependency:list test -Dsort -U -B
