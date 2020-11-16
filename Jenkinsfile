@@ -34,7 +34,7 @@ pipeline {
 
 					docker.withRegistry('', 'hub.docker.com-springbuildmaster') {
 						docker.image('adoptopenjdk/openjdk8:latest').inside('-e "DOCKER_HOST=unix:///tmp/docker-spring-data/docker.sock" -v /usr/bin/docker:/usr/bin/docker -v /tmp/docker-spring-data/docker.sock:/var/run/docker.sock') {
-							sh 'ci/test.sh'
+							sh './test.sh'
 						}
 					}
 				}
