@@ -3,7 +3,7 @@
 set -euo pipefail
 
 #export XDG_RUNTIME_DIR=/var/run
-#export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+export DOCKER_HOST=unix:///var/run/docker.sock
 
 ls -l /var/run/docker.sock
 
