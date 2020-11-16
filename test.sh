@@ -13,4 +13,6 @@ mkdir -p /tmp/jenkins-home
 
 docker run --rm busybox whoami
 
-MAVEN_OPTS="-Duser.name=jenkins -Duser.home=/tmp/jenkins-home" ./mvnw -Pci,all-dbs clean dependency:list test -Dsort -U -B
+docker run -v $XDG_RUNTIME_DIR/docker.sock:/var/run/docker.sock --rm testcontainers/ryuk:0.3.0
+
+#MAVEN_OPTS="-Duser.name=jenkins -Duser.home=/tmp/jenkins-home" ./mvnw -Pci,all-dbs clean dependency:list test -Dsort -U -B
