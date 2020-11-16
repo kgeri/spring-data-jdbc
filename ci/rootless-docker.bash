@@ -29,3 +29,5 @@ docker info || ls -la $XDG_RUNTIME_DIR
 docker ps
 docker run --rm busybox whoami
 #docker run -it -v $XDG_RUNTIME_DIR/docker.sock:/var/run/docker.sock --rm testcontainers/ryuk:0.3.0
+
+chmod o+rwx $XDG_RUNTIME_DIR
