@@ -5,7 +5,7 @@ set -euo pipefail
 export XDG_RUNTIME_DIR=/tmp/docker-spring-data
 #export DOCKER_HOST=unix:///var/run/docker.sock
 
-ls -l /var/run/docker.sock
+ls -l $XDG_RUNTIME_DIR/docker.sock
 
 ./accept-third-party-license.sh
 
