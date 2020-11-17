@@ -33,7 +33,7 @@ pipeline {
 					sh 'ci/rootless-docker.bash'
 
 					docker.withRegistry('', 'hub.docker.com-springbuildmaster') {
-						docker.image('adoptopenjdk/openjdk8:latest').inside('-u root -e "DOCKER_HOST=unix:///tmp/docker-spring-data/docker.sock" -v /usr/bin/docker:/usr/bin/docker -v /tmp/docker-spring-data/docker.sock:/var/run/docker.sock:rw,z') {
+						docker.image('adoptopenjdk/openjdk8:latest').inside('-u root -e "DOCKER_HOST=unix:///tmp/docker-spring-data/docker.sock" -v /usr/bin/docker:/usr/bin/docker -v /tmp/docker-spring-data/docker.sock:/tmp/docker-spring-data/docker.sock:rw,z') {
 							sh './test.sh'
 						}
 					}
